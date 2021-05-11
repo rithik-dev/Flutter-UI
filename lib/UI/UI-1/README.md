@@ -1,7 +1,3 @@
-# Flutter UI's
-
-* A place where I try to re-create UI's I find interesting from social media posts.
-
 ## UI-1
 Inspiration: [MD Sajib Hossain](https://www.linkedin.com/feed/update/urn:li:activity:6796724038057238529)
 
