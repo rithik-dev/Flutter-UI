@@ -10,13 +10,12 @@ class MainHomeScreen extends StatelessWidget {
   static const _BASE_URL_REPOSITORY =
       'https://github.com/rithik-dev/Flutter-UI/tree/master/lib/UI/UI-';
 
-  static final _appData = MAIN_APP_DATA;
+  static const _appData = MAIN_APP_DATA;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: PageView.builder(
-        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
           final videoLink = _BASE_URL_CODE + _appData[index]['gif'];
@@ -51,6 +50,8 @@ class MainHomeScreen extends StatelessWidget {
                     videoLink,
                     borderRadius: 10,
                     padding: const EdgeInsets.all(5),
+                    height: MediaQuery.of(context).size.height * 0.72,
+                    width: MediaQuery.of(context).size.width * 0.72,
                     cover: false,
                   ),
                   const SizedBox(height: 15),
