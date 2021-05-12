@@ -1,47 +1,96 @@
-import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:flutter_ui/widgets/my_cached_network_image.dart';
 import 'package:flutter_ui/src/main_app_data.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainHomeScreen extends StatelessWidget {
-  static const _BASE_URL =
+  static const _BASE_URL_CODE =
       'https://user-images.githubusercontent.com/56810766/';
+  static const _BASE_URL_REPOSITORY =
+      'https://github.com/rithik-dev/Flutter-UI/tree/master/lib/UI/UI-';
 
   static final _appData = MAIN_APP_DATA;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: Text("Flutter UI's")),
-        body: ListView.builder(
-          itemBuilder: (context, index) {
-            return EasyContainer(
-              height: 500,
-              onTap: () => runApp(_appData[index]['app']),
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                separatorBuilder: (c, i) => const SizedBox(width: 10),
-                itemBuilder: (context, imageIndex) {
-                  final path =
-                      _BASE_URL + _appData[index]['screenshots'][imageIndex];
-
-                  return MyCachedNetworkImage(
-                    path,
-                    height: double.infinity,
-                    borderRadius: 15,
-                    width: 230,
+      child: PageView.builder(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) {
+          final videoLink = _BASE_URL_CODE + _appData[index]['gif'];
+          final repositoryLink = '$_BASE_URL_REPOSITORY${index + 1}';
+          return Scaffold(
+            backgroundColor: Theme.of(context).appBarTheme.color,
+            appBar: AppBar(
+              title: Text("Flutter UI-${index + 1}"),
+              centerTitle: true,
+            ),
+            body: SizedBox(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  MyCachedNetworkImage(
+                    videoLink,
+                    borderRadius: 10,
+                    padding: const EdgeInsets.all(5),
                     cover: false,
-                  );
-                },
-                itemCount: (_appData[index]['screenshots'] as List).length,
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _CopyLinkButton(repositoryLink: repositoryLink),
+                      FloatingActionButton.extended(
+                        icon: Icon(Icons.code),
+                        label: Text("Open Source Code"),
+                        onPressed: () async {
+                          if (await canLaunch(repositoryLink))
+                            await launch(repositoryLink);
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                ],
               ),
-            );
-          },
-          itemCount: _appData.length,
-        ),
+            ),
+          );
+        },
+        itemCount: _appData.length,
       ),
+    );
+  }
+}
+
+class _CopyLinkButton extends StatefulWidget {
+  final String repositoryLink;
+
+  const _CopyLinkButton({
+    Key? key,
+    required this.repositoryLink,
+  }) : super(key: key);
+
+  @override
+  __CopyLinkButtonState createState() => __CopyLinkButtonState();
+}
+
+class __CopyLinkButtonState extends State<_CopyLinkButton> {
+  bool _showCheck = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton.extended(
+      label: Text("Copy Link"),
+      icon: Icon(_showCheck ? Icons.check : Icons.copy),
+      onPressed: () async {
+        Clipboard.setData(ClipboardData(text: widget.repositoryLink));
+        setState(() => _showCheck = true);
+        await Future.delayed(Duration(seconds: 1));
+        setState(() => _showCheck = false);
+      },
     );
   }
 }

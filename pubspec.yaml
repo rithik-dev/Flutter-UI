@@ -12,7 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  easy_container: ^0.0.4
+  easy_container: ^0.0.6
+  url_launcher: ^6.0.3
   timeline_tile: ^2.0.0
   shimmer: ^2.0.0
   cached_network_image: ^3.0.0

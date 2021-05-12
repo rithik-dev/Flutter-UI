@@ -2,7 +2,7 @@ import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/UI/UI-1/app_data.dart';
 import 'package:flutter_ui/UI/UI-1/screens/register_screen.dart';
-import 'package:flutter_ui/widgets/my_cached_network_image.dart';
+import 'package:flutter_ui/UI/UI-1/widgets/my_cached_network_image.dart';
 
 class IntroScreen extends StatefulWidget {
   static const id = 'intro_screen';

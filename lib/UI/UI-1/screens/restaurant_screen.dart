@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ui/UI/UI-1/app_data.dart';
 import 'package:flutter_ui/UI/UI-1/widgets/my_app_bar.dart';
 import 'package:flutter_ui/UI/UI-1/widgets/my_button.dart';
-import 'package:flutter_ui/widgets/my_cached_network_image.dart';
+import 'package:flutter_ui/UI/UI-1/widgets/my_cached_network_image.dart';
 
 class RestaurantScreen extends StatelessWidget {
   static const id = 'restaurant_screen';

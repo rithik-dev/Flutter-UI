@@ -4,7 +4,7 @@ import 'package:flutter_ui/UI/UI-1/app_data.dart';
 import 'package:flutter_ui/UI/UI-1/screens/login_screen.dart';
 import 'package:flutter_ui/UI/UI-1/widgets/input_field.dart';
 import 'package:flutter_ui/UI/UI-1/widgets/my_button.dart';
-import 'package:flutter_ui/widgets/my_cached_network_image.dart';
+import 'package:flutter_ui/UI/UI-1/widgets/my_cached_network_image.dart';
 
 class ManageProfileScreen extends StatelessWidget {
   static const id = 'manage_profile_screen';
