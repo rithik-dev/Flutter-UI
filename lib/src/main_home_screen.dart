@@ -41,40 +41,32 @@ class MainHomeScreen extends StatelessWidget {
                 )
               ],
             ),
-            body: SizedBox(
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+            body: Align(
+              child: MyCachedNetworkImage(
+                videoLink,
+                borderRadius: 10,
+                cover: false,
+              ),
+            ),
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  MyCachedNetworkImage(
-                    videoLink,
-                    borderRadius: 10,
-                    padding: const EdgeInsets.all(5),
-                    height: MediaQuery.of(context).size.height * 0.72,
-                    width: MediaQuery.of(context).size.width * 0.72,
-                    cover: false,
+                  _CopyLinkButton(repositoryLink: repositoryLink),
+                  FloatingActionButton.extended(
+                    icon: Icon(Icons.code),
+                    label: Text("Code"),
+                    onPressed: () async {
+                      if (await canLaunch(repositoryLink))
+                        await launch(repositoryLink);
+                    },
                   ),
-                  const SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _CopyLinkButton(repositoryLink: repositoryLink),
-                      FloatingActionButton.extended(
-                        icon: Icon(Icons.code),
-                        label: Text("Open"),
-                        onPressed: () async {
-                          if (await canLaunch(repositoryLink))
-                            await launch(repositoryLink);
-                        },
-                      ),
-                      FloatingActionButton.extended(
-                        icon: Icon(Icons.open_in_full),
-                        label: Text("Experience"),
-                        onPressed: () => runApp(_appData[index]['app']),
-                      ),
-                    ],
+                  FloatingActionButton.extended(
+                    icon: Icon(Icons.open_in_full),
+                    label: Text("Open"),
+                    onPressed: () => runApp(_appData[index]['app']),
                   ),
-                  const SizedBox(height: 15),
                 ],
               ),
             ),
@@ -99,18 +91,18 @@ class _CopyLinkButton extends StatefulWidget {
 }
 
 class __CopyLinkButtonState extends State<_CopyLinkButton> {
-  bool _showCheck = false;
+  bool _copied = false;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-      label: Text("Copy"),
-      icon: Icon(_showCheck ? Icons.check : Icons.copy),
+      label: Text(_copied ? "Copied" : "Copy"),
+      icon: Icon(_copied ? Icons.check : Icons.copy),
       onPressed: () async {
         Clipboard.setData(ClipboardData(text: widget.repositoryLink));
-        setState(() => _showCheck = true);
+        setState(() => _copied = true);
         await Future.delayed(Duration(seconds: 1));
-        setState(() => _showCheck = false);
+        setState(() => _copied = false);
       },
     );
   }

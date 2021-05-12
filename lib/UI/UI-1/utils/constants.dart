@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 const Color kAccentColor = Color(0xFF393486);
-// const Color kAppBarColor = Color(0xFF371A45);
-// const Color kLightYellow = Color(0xFFFEFBC6);
 
 const FONT_FAMILY = 'ProductSans';
 
@@ -27,7 +25,7 @@ final kAppTheme = ThemeData(
     contentTextStyle: TextStyle(
       fontSize: 16,
       color: Colors.white,
-      fontFamily: 'ProductSans',
+      fontFamily: FONT_FAMILY,
     ),
   ),
   pageTransitionsTheme: const PageTransitionsTheme(
