@@ -6,6 +6,8 @@ import 'package:flutter_ui/UI/UI-1/utils/route_generator.dart';
 void main() => runApp(UI1());
 
 class UI1 extends StatelessWidget {
+  const UI1();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
