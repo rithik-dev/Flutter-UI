@@ -24,8 +24,23 @@ class MainHomeScreen extends StatelessWidget {
           return Scaffold(
             backgroundColor: Theme.of(context).appBarTheme.color,
             appBar: AppBar(
-              title: Text("Flutter UI-${index + 1}"),
-              centerTitle: true,
+              title: Text("Flutter UI's"),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).accentColor,
+                    radius: 20,
+                    child: Text(
+                      (index + 1).toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
             body: SizedBox(
               width: double.infinity,
@@ -45,11 +60,16 @@ class MainHomeScreen extends StatelessWidget {
                       _CopyLinkButton(repositoryLink: repositoryLink),
                       FloatingActionButton.extended(
                         icon: Icon(Icons.code),
-                        label: Text("Open Source Code"),
+                        label: Text("Open"),
                         onPressed: () async {
                           if (await canLaunch(repositoryLink))
                             await launch(repositoryLink);
                         },
+                      ),
+                      FloatingActionButton.extended(
+                        icon: Icon(Icons.open_in_full),
+                        label: Text("Experience"),
+                        onPressed: () => runApp(_appData[index]['app']),
                       ),
                     ],
                   ),
@@ -83,7 +103,7 @@ class __CopyLinkButtonState extends State<_CopyLinkButton> {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-      label: Text("Copy Link"),
+      label: Text("Copy"),
       icon: Icon(_showCheck ? Icons.check : Icons.copy),
       onPressed: () async {
         Clipboard.setData(ClipboardData(text: widget.repositoryLink));

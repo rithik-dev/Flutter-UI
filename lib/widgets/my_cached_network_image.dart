@@ -39,7 +39,7 @@ class MyCachedNetworkImage extends StatelessWidget {
           ),
           errorWidget: (context, _, __) => Icon(
             Icons.error,
-            color: Colors.black,
+            color: Colors.white,
             size: 50,
           ),
         ),
