@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
-import 'package:flutter_ui/widgets/my_cached_network_image.dart';
 import 'package:flutter_ui/src/main_app_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -42,10 +42,15 @@ class MainHomeScreen extends StatelessWidget {
               ],
             ),
             body: Align(
-              child: MyCachedNetworkImage(
-                videoLink,
-                borderRadius: 10,
-                cover: false,
+              child: Material(
+                borderRadius: BorderRadius.circular(10),
+                clipBehavior: Clip.hardEdge,
+                color: Colors.transparent,
+                child: CachedNetworkImage(
+                  imageUrl: videoLink,
+                  placeholder: (c, _) =>
+                      Center(child: CircularProgressIndicator()),
+                ),
               ),
             ),
             bottomNavigationBar: Padding(
